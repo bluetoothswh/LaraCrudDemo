@@ -1,0 +1,29 @@
+
+table.goods-table{
+	margin: 40px 0;
+	border: 1px solid #ddd;
+}
+
+img.thumb{
+	width: 100px;
+	border: 1px solid #ff6600;
+	padding: 5px;
+}
+
+.container{
+	margin-top: 20px;
+}
+
+ul.errors li{
+	line-height: 40px;
+	color: #fff;
+}
+
+ul.errors li i{
+	color: #fff;
+	padding: 0 10px;
+}
+
+table.my-tab{
+	border: 1px solid #ddd;
+}

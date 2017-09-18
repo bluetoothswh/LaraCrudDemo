@@ -1,0 +1,32 @@
+body{
+
+	font-family: "Myriad Set Pro","Source Sans Pro",sans-serif,Monaco,monospace;
+}
+
+.video-box{
+	border: 10px solid #ddd;
+	margin:0 auto;
+	margin-top:50px;
+	box-sizing: content-box;
+}
+
+nav.is-home{
+	padding: 20px 0;
+	margin-bottom: 15px;
+}
+
+img.logo-img{
+	padding-left: 20px;
+	height: 45px;
+}
+
+h3.org{
+	color: #FF9800;
+}
+
+.card-image .play-btn{
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}

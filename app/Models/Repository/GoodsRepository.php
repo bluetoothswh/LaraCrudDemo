@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models\Repository;
-
+use App\Events\CreateLog;
 trait GoodsRepository{
 
 	/*
@@ -37,6 +37,9 @@ trait GoodsRepository{
 		$self 			= new static;
 		$model 			= $self->create(request()->all());
 		$model->uploadThumb();
+		//激活了事件 存储日志
+		$content 		 = '添加商品：'.request()->goods_name;
+		event(new CreateLog($content));
 		return $model;
 	}
 

@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        //添加新的guards
+        'admin'=>[
+            'driver' =>'session',
+            'provider'=>'admins',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -70,10 +75,10 @@ return [
             'model' => App\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'admins'=>[
+            'driver'=>'eloquent',
+            'model'=> App\Models\Admin::class,
+        ],
     ],
 
     /*

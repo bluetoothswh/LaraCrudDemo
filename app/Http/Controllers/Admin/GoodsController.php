@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Goods;
-
+use App\Rules\GoodsSnRule;
+use App\Events\CreateLog;
 class GoodsController extends Controller
 {
     /*
@@ -18,7 +19,7 @@ class GoodsController extends Controller
 	public function __construct(){
 		//表单数据验证
 		$this->rules = [
-			'goods_sn'=>'required',
+			'goods_sn'=>['required',new GoodsSnRule],
 			'goods_name'=>'required',
 			'shop_price'=>'required',
 			'goods_thumb'=>'image',
@@ -57,7 +58,6 @@ class GoodsController extends Controller
 	|--------------------------------------------------------------------------
 	*/
 	public function create(){
-
 		$title 					= '添加商品数据';
 		return view('demo.goods.create',compact('title'));
 	}
@@ -70,7 +70,6 @@ class GoodsController extends Controller
 	|--------------------------------------------------------------------------
 	*/
 	public function store(){
-
 		request()->validate($this->rules,$this->messages);
 		Goods::createModel();
 		return redirect('goods');

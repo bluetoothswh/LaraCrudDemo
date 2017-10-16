@@ -42,13 +42,22 @@
 					      </div>
     				</div>
 				</div>
-				@if($model->goods_thumb)
+
+				@if($model->gallery)
 				<div class="row">
-					<div class="input-field cols s6">
-						<img src="{{url($model->goods_thumb)}}" alt="" class="thumb">
+					@foreach($model->gallery as $gallery)
+					<div class="input-field col s6">
+						<img src="{{url($gallery->goods_img)}}" alt="" class="thumb">
+						<span class="btn grey">
+						<i class="material-icons left">clear</i>
+						删除
+						</span>
 					</div>
+					@endforeach
+					
 				</div>
 				@endif
+
 				<input type="hidden" name="_method" value="PUT">
 				<div class="row">
 					<div class="input-field col s6">

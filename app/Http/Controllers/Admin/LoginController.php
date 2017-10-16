@@ -39,9 +39,9 @@ class LoginController extends Controller
     */
     public function show()
     {   
-        if(auth()->guard('admin')->check()){
-            return redirect('admin/center');
-        }
+       if(auth()->guard('admin')->check()){
+           return redirect('admin/center');
+       }
         $title          = '管理员登录';
         return view('demo.admin.login',compact('title'));
     }

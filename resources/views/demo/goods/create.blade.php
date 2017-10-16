@@ -30,18 +30,31 @@
 						<label for="shop_price">商品价格</label>
 					</div>
 				</div>
-
 				<div class="row">
-					<div class="file-field input-field col s6">
-					      <div class="btn">
-					        <span>商品缩略图</span>
-					        <input type="file" name="goods_thumb">
-					      </div>
-					      <div class="file-path-wrapper">
-					        <input class="file-path validate" type="text">
-					      </div>
-    				</div>
+					<div class="input-field col s6">
+						<img src="{{captcha_src('flat')}}" alt="" class="captcha-img">
+					</div>
 				</div>
+				
+				<div class="row">
+					<div class="input-field col s6">
+						<input type="text" name="captcha" id="captcha">
+						<label for="captcha">验证码</label>
+					</div>
+				</div>
+
+				
+				<div id="goods_thumb_content">
+					
+				</div>
+				<div class="row">
+    				<div class="input-field col s6">
+    					<span class="btn-large blue" id="add-goods-thumb-btn">
+    						<i class="material-icons left">add</i>
+    						添加图片
+    					</span>
+    				</div>
+    			</div> 
 
 				<div class="row">
 					<div class="input-field col s6">
@@ -52,5 +65,5 @@
 			{{Form::close()}}
 		</div>
 	</div>
-
+@include('demo.js.thumb')
 @stop

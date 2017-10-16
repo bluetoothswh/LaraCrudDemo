@@ -5,8 +5,12 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Goods;
+use App\Models\GoodsGallery;
 use App\Rules\GoodsSnRule;
 use App\Events\CreateLog;
+use Storage;
+use File,Image;
+
 class GoodsController extends Controller
 {
     /*
@@ -16,22 +20,30 @@ class GoodsController extends Controller
 	|
 	|--------------------------------------------------------------------------
 	*/
-	public function __construct(){
+	public function __construct()
+	{
 		//表单数据验证
 		$this->rules = [
-			'goods_sn'=>['required',new GoodsSnRule],
+			'goods_sn'=>'required',
 			'goods_name'=>'required',
 			'shop_price'=>'required',
-			'goods_thumb'=>'image',
+			'imgs.*'=>'image',
+			'captcha'=>'required|captcha',
+			
+			
 		];
 		$this->messages = [
 
 			'goods_sn.required'=>'商品货号必须',
 			'goods_name.required'=>'名称必须',
 			'shop_price.required'=>'价格必须',
-			'goods_thumb.image'=>'图片格式不符合',
+			'imgs.*.image'=>'必须是图片格式',
+			'captcha.required'=>'验证码必须',
+			'captcha.captcha'=>'验证码错误',
+			
 
 		];
+		$this->middleware('auth.admin');
 	}
     
 
@@ -75,6 +87,29 @@ class GoodsController extends Controller
 		return redirect('goods');
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| 
+	| 创建缩略图
+	|
+	|--------------------------------------------------------------------------
+	*/
+	public function makeThumb($path,$width,$height)
+	{
+		$img 		= Image::make($path);
+		$basename   = $img->basename;
+		$img->resize($width, $height, function ($constraint) {
+			$constraint->aspectRatio();
+		});
+		//创建目录
+		$dirName	= 'oss/'.date('Y-m-d').'/thumb';
+		Storage::makeDirectory($dirName,0755);
+		$thumbPath  = $dirName.'/thumb-'.$basename;
+		$img->save(public_path().'/'.$thumbPath);
+		
+		return $thumbPath;
+	}
+
 
 	/*
 	|--------------------------------------------------------------------------
@@ -110,7 +145,7 @@ class GoodsController extends Controller
 		}
 
 		//表单验证
-		request()->validate($this->rules,$this->messages);
+		//request()->validate($this->rules,$this->messages);
 		//处理更新数据
 		$model->update(request()->all());
 		//处理缩略图上传
@@ -202,4 +237,6 @@ class GoodsController extends Controller
 			"demo.goods.detail_default",
 		],compact('goods','title'));
 	}
+
+	
 }

@@ -54,15 +54,14 @@ class LoginController extends Controller
 	|--------------------------------------------------------------------------
     */
     public function login(){
-        if(auth()->guard('web')->check()){
-            return redirect('auth/center');
-        }
+        
         //表单验证
         request()->validate($this->rules,$this->messages);
         $username       = request()->username;
         $password       = request()->password;
         if(auth()->attempt(compact('username','password'))){
-            return redirect('auth/center');
+            //return redirect('auth/center');
+            dd(session()->all());
            
         }
         return '登录失败';

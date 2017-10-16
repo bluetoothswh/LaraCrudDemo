@@ -44,9 +44,7 @@ class RegisterController extends Controller
 	|--------------------------------------------------------------------------
     */
     public function show(){
-        if(auth()->guard('web')->check()){
-            return redirect('auth/center');
-        }
+        
         $title      = '注册新会员';
         return view('demo.register.index',compact('title'));
     }

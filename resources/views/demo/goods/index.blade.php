@@ -33,8 +33,8 @@
       						<label for="ids{{$item->id}}">{{$item->id}}</label>
 					 	</td>
 					 	<td>
-					 		@if($item->goods_thumb)
-							<img src="{{url($item->goods_thumb)}}" alt="" class="thumb">
+					 		@if($item->thumb())
+							<img src="{{url($item->getThumb())}}" alt="" class="thumb">
 					 		@endif
 					 	</td>
 					 	<td>{{$item->goods_sn}}</td>
